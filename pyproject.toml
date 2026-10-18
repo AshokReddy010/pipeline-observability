@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pipeline-observability"
+version = "1.0.0"
+description = "Data observability for real public feeds: freshness, volume, schema, completeness and drift monitors with incidents, alerts and a live status page."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Ashok Reddy" }]
+requires-python = ">=3.10"
+dependencies = ["pandas>=2.0", "numpy>=1.24"]
+keywords = ["data observability", "monitoring", "anomaly detection", "data quality", "data engineering"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Topic :: Database",
+  "Intended Audience :: Developers",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-cov>=5", "ruff>=0.6", "mypy>=1.10", "pandas-stubs"]
+
+[project.scripts]
+pipeobs = "pipeobs.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/AshokReddy010/pipeline-observability"
+Status = "https://ashokreddy010.github.io/pipeline-observability/"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM"]
+ignore = ["E501", "B023"]
+
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true
+warn_unused_ignores = false

@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Feed Watch: Data Observability Status</title>
+<meta name="description" content="Live health of three public data feeds (USGS earthquakes, Wikipedia pageviews, Chicago crimes): freshness, volume, schema, completeness and drift, checked every 3 hours.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+:root {
+  --bg: #f4f6f9; --panel: #ffffff; --ink: #0f1b2d; --muted: #5a6b82; --faint: #e3e8ef; --line: #d6dde7;
+  --pass: #1a7f5a; --warn: #b26a00; --fail: #c0392b; --learn: #a3b0c2; --none: #e3e8ef;
+  --pass-soft: #e2f3ec; --warn-soft: #fbefdc; --fail-soft: #fbe6e3; --focus: #2457d6;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c1420; --panel: #121d2c; --ink: #e6edf6; --muted: #93a3b8; --faint: #1c293b; --line: #23324a;
+    --pass: #3fbf8c; --warn: #e7a437; --fail: #f07264; --learn: #52627a; --none: #1c293b;
+    --pass-soft: #12302a; --warn-soft: #33270f; --fail-soft: #3a1c1a; --focus: #7ea3ff; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0c1420; --panel: #121d2c; --ink: #e6edf6; --muted: #93a3b8; --faint: #1c293b; --line: #23324a;
+  --pass: #3fbf8c; --warn: #e7a437; --fail: #f07264; --learn: #52627a; --none: #1c293b;
+  --pass-soft: #12302a; --warn-soft: #33270f; --fail-soft: #3a1c1a; --focus: #7ea3ff; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.55 Manrope, system-ui, -apple-system, "Segoe UI", sans-serif; padding: 0 16px 56px; }
+.wrap { max-width: 1080px; margin: 0 auto; }
+a { color: inherit; text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.num { font-variant-numeric: tabular-nums; }
+
+header { padding-block: 40px 28px; display: grid; gap: 14px; }
+.site { color: var(--muted); font-weight: 600; font-size: 14px; }
+.headline { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.beacon { width: 18px; height: 18px; border-radius: 50%; background: var(--learn); flex: none; box-shadow: 0 0 0 6px var(--faint); }
+.beacon.pass { background: var(--pass); box-shadow: 0 0 0 6px var(--pass-soft); }
+.beacon.warn { background: var(--warn); box-shadow: 0 0 0 6px var(--warn-soft); }
+.beacon.fail { background: var(--fail); box-shadow: 0 0 0 6px var(--fail-soft); }
+@media (prefers-reduced-motion: no-preference) { .beacon.fail { animation: pulse 2s ease-in-out infinite; } }
+@keyframes pulse { 50% { box-shadow: 0 0 0 11px var(--fail-soft); } }
+h1 { margin: 0; font-size: clamp(1.7rem, 4.2vw, 2.6rem); line-height: 1.1; letter-spacing: -0.025em; font-weight: 800; text-wrap: balance; }
+.sub { margin: 0; color: var(--muted); max-width: 72ch; }
+.stats { display: flex; flex-wrap: wrap; gap: 10px 32px; margin-top: 6px; }
+.stats div { display: grid; }
+.stats b { font-size: 1.25rem; font-weight: 700; }
+.stats span { color: var(--muted); font-size: 13px; }
+
+.feed { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; margin-bottom: 18px; overflow: hidden; }
+.feed-head { display: flex; justify-content: space-between; gap: 12px 20px; align-items: flex-start; padding: 18px 22px 12px; flex-wrap: wrap; }
+.feed-title { display: grid; gap: 2px; min-width: 0; }
+.feed-title h2 { margin: 0; font-size: 1.1rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+.feed-title h2 .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+.feed-title p { margin: 0; color: var(--muted); font-size: 13.5px; }
+.pill { font-size: 12.5px; font-weight: 700; padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
+.pill.pass { background: var(--pass-soft); color: var(--pass); } .pill.warn { background: var(--warn-soft); color: var(--warn); }
+.pill.fail { background: var(--fail-soft); color: var(--fail); } .pill.unknown { background: var(--faint); color: var(--muted); }
+.dot.pass { background: var(--pass); } .dot.warn { background: var(--warn); } .dot.fail { background: var(--fail); } .dot.unknown { background: var(--learn); }
+
+.ribbon-wrap { padding: 4px 22px 4px; }
+.ribbon { display: flex; gap: 2px; height: 34px; align-items: stretch; }
+.ribbon i { flex: 1 1 0; min-width: 2px; border-radius: 2px; background: var(--none); }
+.ribbon i.pass { background: var(--pass); opacity: .85; } .ribbon i.warn { background: var(--warn); } .ribbon i.fail { background: var(--fail); }
+.ribbon i.bf { opacity: .38; }
+@media (max-width: 560px) { .ribbon { gap: 1px; } .ribbon i { min-width: 1px; border-radius: 1px; } }
+.ribbon-axis { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; padding-top: 4px; }
+.facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--faint); margin-top: 12px; }
+.facts div { padding: 12px 22px; display: grid; gap: 1px; border-right: 1px solid var(--faint); }
+.facts div:last-child { border-right: 0; }
+.facts span { color: var(--muted); font-size: 12.5px; }
+.facts b { font-weight: 700; }
+@media (max-width: 720px) { .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } .facts div:nth-child(2) { border-right: 0; } .facts div:nth-child(-n+2) { border-bottom: 1px solid var(--faint); } }
+details.checks { border-top: 1px solid var(--faint); }
+details.checks summary { cursor: pointer; padding: 11px 22px; color: var(--muted); font-size: 13.5px; font-weight: 600; }
+.check-list { list-style: none; margin: 0; padding: 0 22px 14px; display: grid; gap: 8px; }
+.check-list li { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 12px; align-items: baseline; }
+.check-list .m { font-weight: 600; display: flex; gap: 8px; align-items: center; }
+.check-list .m::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--learn); flex: none; }
+.check-list .pass .m::before { background: var(--pass); } .check-list .warn .m::before { background: var(--warn); } .check-list .fail .m::before { background: var(--fail); }
+.check-list .msg { color: var(--muted); font-size: 13.5px; overflow-wrap: anywhere; }
+.spark { display: block; width: 100%; height: 46px; }
+.spark path.line { fill: none; stroke: var(--ink); stroke-width: 1.4; opacity: .7; }
+.spark path.area { fill: var(--faint); }
+
+section.block { margin-top: 36px; }
+h3 { font-size: 1.15rem; margin: 0 0 12px; letter-spacing: -0.01em; }
+.table-wrap { overflow-x: auto; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 640px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--faint); vertical-align: top; }
+th { color: var(--muted); font-weight: 600; font-size: 12.5px; }
+tr:last-child td { border-bottom: 0; }
+td.msg { color: var(--muted); }
+.empty { padding: 18px; color: var(--muted); }
+.how { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px 28px; }
+.how div h4 { margin: 0 0 4px; font-size: 14.5px; }
+.how div p { margin: 0; color: var(--muted); font-size: 13.5px; }
+footer { margin-top: 40px; color: var(--muted); font-size: 13px; display: grid; gap: 4px; }
+footer p { margin: 0; }
+.notice { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 18px 22px; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="site">Feed Watch · data observability for public feeds</div>
+    <div class="headline"><span class="beacon" id="beacon"></span><h1 id="headline">Loading the latest checks…</h1></div>
+    <p class="sub" id="sub">Three real public datasets are fetched every 3 hours. Each batch is profiled and compared with that feed's own history: is it fresh, is the volume normal, did the schema change, did a column go blank, did a distribution move?</p>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <main>
+    <div id="feeds"></div>
+
+    <section class="block" aria-labelledby="inc-h">
+      <h3 id="inc-h">Incidents</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Feed</th><th>Check</th><th>Started (UTC)</th><th>Duration</th><th>What happened</th></tr></thead>
+        <tbody id="incidents"><tr><td colspan="5" class="empty">Loading…</td></tr></tbody>
+      </table></div>
+    </section>
+
+    <section class="block" aria-labelledby="how-h">
+      <h3 id="how-h">What each check means</h3>
+      <div class="how">
+        <div><h4>Freshness</h4><p>The newest record must be younger than the feed's SLA: 2 hours for earthquakes, 54 hours for Wikipedia, 10 days for Chicago, which publishes about a week behind.</p></div>
+        <div><h4>Volume</h4><p>Row count against a robust baseline (median and MAD of recent healthy runs; the same weekday for daily feeds). Fails beyond 4.5 deviations.</p></div>
+        <div><h4>Schema</h4><p>A removed column or changed type fails; a new column warns. A column that goes entirely blank is reported by completeness instead.</p></div>
+        <div><h4>Completeness</h4><p>Each column's null rate against its usual level. A jump of 10 points warns, 30 points fails.</p></div>
+        <div><h4>Uniqueness</h4><p>Record ids must not repeat within a batch.</p></div>
+        <div><h4>Distribution</h4><p>Population stability index of magnitudes, depths, views, hours and categories against the last two weeks. Above 0.2 warns: the world changes, so drift is a signal, not an outage.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p id="gen"></p>
+    <p>Failing checks open a GitHub issue automatically and close it when the check passes again. <a href="https://github.com/AshokReddy010/pipeline-observability">Code, history and incident log on GitHub</a>.</p>
+    <p>Data: <a href="https://earthquake.usgs.gov/earthquakes/feed/">USGS</a>, <a href="https://wikimedia.org/api/rest_v1/">Wikimedia</a>, <a href="https://data.cityofchicago.org/d/ijzp-q8t2">City of Chicago</a>. Faded ticks are history replayed from each feed's archive when monitoring began.</p>
+  </footer>
+</div>
+
+<script>
+const LIVE = "https://raw.githubusercontent.com/AshokReddy010/pipeline-observability/main/status/latest.json";
+const SRC = new URLSearchParams(location.search).get("src") || LIVE;
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const WORD = { pass: "Healthy", warn: "Warning", fail: "Failing", unknown: "No data yet" };
+const ORDER = ["availability", "freshness", "volume", "schema", "completeness", "uniqueness", "distribution"];
+
+function ago(iso) {
+  if (!iso) return "never";
+  const m = (Date.now() - new Date(iso)) / 60000;
+  if (m < 1) return "just now";
+  if (m < 90) return `${Math.round(m)} min ago`;
+  if (m < 48 * 60) return `${(m / 60).toFixed(1)} h ago`;
+  return `${(m / 1440).toFixed(1)} days ago`;
+}
+function age(h) { if (h == null) return "–"; if (h < 1) return `${Math.round(h * 60)} min`; if (h < 48) return `${h.toFixed(1)} h`; return `${(h / 24).toFixed(1)} days`; }
+function pct(x) { return x == null ? "–" : `${(x * 100).toFixed(x === 1 ? 0 : 1)}%`; }
+function when(iso) { const d = new Date(iso); return d.toISOString().slice(0, 16).replace("T", " "); }
+function dur(h) { if (h == null) return "ongoing"; return h < 1 ? `${Math.round(h * 60)} min` : h < 48 ? `${h.toFixed(1)} h` : `${(h / 24).toFixed(1)} days`; }
+
+function spark(runs) {
+  const pts = runs.map((r) => r.rows).filter((v) => v != null);
+  if (pts.length < 2) return "";
+  const W = 600, H = 46, lo = Math.min(...pts), hi = Math.max(...pts), span = hi - lo || 1;
+  const xy = pts.map((v, i) => [(i / (pts.length - 1)) * W, H - 4 - ((v - lo) / span) * (H - 8)]);
+  const line = xy.map(([x, y], i) => `${i ? "L" : "M"}${x.toFixed(1)},${y.toFixed(1)}`).join("");
+  return `<svg class="spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Rows per run, from ${lo.toLocaleString()} to ${hi.toLocaleString()}">
+    <path class="area" d="${line}L${W},${H}L0,${H}Z"/><path class="line" d="${line}" vector-effect="non-scaling-stroke"/></svg>`;
+}
+
+function feed(s) {
+  const runs = s.runs || [];
+  const ticks = runs.map((r) => `<i class="${r.s}${r.b ? " bf" : ""}" title="${esc(when(r.t))} UTC · ${esc(r.p)} · ${WORD[r.s] || r.s}${r.rows != null ? ` · ${r.rows.toLocaleString()} rows` : ""}"></i>`).join("");
+  const checks = (s.latest?.checks || []).slice().sort((a, b) => ORDER.indexOf(a.monitor) - ORDER.indexOf(b.monitor));
+  const first = runs[0], last = runs[runs.length - 1];
+  return `<article class="feed" aria-labelledby="h-${s.name}">
+    <div class="feed-head">
+      <div class="feed-title"><h2 id="h-${s.name}"><span class="dot ${s.status}"></span>${esc(s.title)}</h2>
+        <p>Updates ${esc(s.cadence)} · last checked ${ago(s.last_run)} · <a href="${esc(s.homepage)}">source</a></p></div>
+      <span class="pill ${s.status}">${WORD[s.status] || s.status}</span>
+    </div>
+    <div class="ribbon-wrap">
+      <div class="ribbon" role="img" aria-label="Status of the last ${runs.length} runs">${ticks || ""}</div>
+      ${runs.length ? `<div class="ribbon-axis"><span>${esc(when(first.t))}</span><span>last ${runs.length} runs</span><span>${esc(when(last.t))}</span></div>` : ""}
+      ${spark(runs)}
+    </div>
+    <div class="facts">
+      <div><span>Newest record</span><b class="num">${age(s.live_freshness_hours)} old</b></div>
+      <div><span>Last batch</span><b class="num">${s.latest?.rows != null ? s.latest.rows.toLocaleString() + " rows" : "–"}</b></div>
+      <div><span>Runs without a failure, 7 days</span><b class="num">${pct(s.uptime_7d)}</b></div>
+      <div><span>Open incidents</span><b class="num">${s.open_incidents}</b></div>
+    </div>
+    ${checks.length ? `<details class="checks"${s.status !== "pass" ? " open" : ""}><summary>Latest checks${s.latest?.partition ? ` for ${esc(s.latest.partition)}` : ""}</summary>
+      <ul class="check-list">${checks.map((c) => `<li class="${c.status}"><span class="m">${esc(c.monitor)}</span><span class="msg">${esc(c.message)}</span></li>`).join("")}</ul></details>` : ""}
+  </article>`;
+}
+
+function render(st) {
+  const n = st.sources.length;
+  const bad = st.sources.filter((s) => s.status === "fail").length;
+  const warn = st.sources.filter((s) => s.status === "warn").length;
+  $("#beacon").className = `beacon ${st.overall}`;
+  $("#headline").textContent = bad ? `${bad} of ${n} feeds failing` : warn ? `All ${n} feeds up, ${warn} with a warning` : `All ${n} feeds healthy`;
+  const open = st.incidents.filter((i) => !i.resolved).length;
+  $("#stats").innerHTML = [
+    [st.sources.reduce((a, s) => a + s.runs_total, 0).toLocaleString(), "batches checked"],
+    [String(st.incidents_30d), "incidents, 30 days"],
+    [st.mttr_hours_30d == null ? "–" : dur(st.mttr_hours_30d), "mean time to recover"],
+    [String(open), "open now"],
+  ].map(([b, s]) => `<div><b class="num">${b}</b><span>${s}</span></div>`).join("");
+  $("#feeds").innerHTML = st.sources.map(feed).join("");
+  const rows = st.incidents.slice(0, 25).map((i) => `<tr>
+    <td>${esc(i.source.replace(/_/g, " "))}</td><td>${esc(i.monitor)}</td><td class="num">${esc(when(i.started))}${i.backfill ? " (replayed)" : ""}</td>
+    <td class="num">${i.resolved ? dur(i.duration_hours) : `<span class="pill fail">ongoing</span>`}</td><td class="msg">${esc(i.last_message)}</td></tr>`).join("");
+  $("#incidents").innerHTML = rows || `<tr><td colspan="5" class="empty">No incidents recorded.</td></tr>`;
+  $("#gen").textContent = `Status generated ${when(st.generated_at)} UTC (${ago(st.generated_at)}). The page reloads it every 5 minutes.`;
+}
+
+async function load() {
+  try {
+    const r = await fetch(SRC + (SRC.includes("?") ? "&" : "?") + "t=" + Math.floor(Date.now() / 60000), { cache: "no-store" });
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    render(await r.json());
+  } catch (e) {
+    $("#headline").textContent = "Status is not available yet";
+    $("#feeds").innerHTML = `<div class="notice">The first monitoring run has not published a status document, or it could not be loaded (${esc(e.message)}). The monitor runs every 3 hours.</div>`;
+    $("#incidents").innerHTML = `<tr><td colspan="5" class="empty">–</td></tr>`;
+  }
+}
+load();
+setInterval(load, 5 * 60 * 1000);
+</script>
+</body>
+</html>
