@@ -131,7 +131,7 @@ def evaluate(p: dict[str, Any], history: list[dict[str, Any]], src: Source) -> l
     else:
         pool, capped = base, False
         wd = weekday(p["partition"]) if src.seasonal else None
-        if wd is not None:
+        if wd is not None and len(base) >= MIN_HISTORY:
             # same-weekday runs, including ones that failed volume before the weekday pattern was known
             fetched = [h for h in history if not h.get("error") and h.get("rows")]
             same = [h for h in fetched if weekday(h["partition"]) == wd][-8:]
@@ -139,7 +139,7 @@ def evaluate(p: dict[str, Any], history: list[dict[str, Any]], src: Source) -> l
                 pool = same
             else:
                 capped = True  # weekly pattern not learned yet: never page on volume alone
-        if len(pool) < MIN_HISTORY:
+        if len(base) < MIN_HISTORY:
             checks.append(
                 Check(
                     "volume",

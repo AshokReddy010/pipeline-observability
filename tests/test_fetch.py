@@ -43,9 +43,10 @@ def test_get_json_gives_up_and_404_is_immediate(monkeypatch):
 
 
 def test_fetch_usgs_and_backfill(monkeypatch):
-    monkeypatch.setattr(sources, "get_json", lambda url, **k: usgs_doc(400, now=NOW))
+    monkeypatch.setattr(sources, "get_json", lambda url, **k: usgs_doc(400, now=NOW, span_hours=49))
     b = sources.fetch_usgs(NOW)
     assert b.partition == "2026-10-18T12:00Z" and len(b.df) == 400
+    assert len(sources.backfill_usgs(NOW, 3)) == 4  # only windows fully inside the feed's coverage
     bs = sources.backfill_usgs(NOW, 1)
     assert len(bs) == 4 and all(x.meta["backfill"] for x in bs)
     assert bs[-1].fetched_at == NOW - timedelta(hours=6)  # the live fetch covers the latest window

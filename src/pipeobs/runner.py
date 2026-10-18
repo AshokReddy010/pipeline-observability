@@ -51,6 +51,8 @@ def run_source(src: Source, store: Store, now: datetime, backfill_days: int = 0)
             log.info("%s: partition %s already recorded; skipping", src.name, b.partition)
             continue
         done.add(b.partition)
+        if backfill_days:
+            b.meta["backfill"] = True  # replayed history: shown faded, never alerts
         rec = record_batch(b, src, history + new)
         new.append(rec)
         log.info("%s %s: %s rows, %s", src.name, b.partition, rec["rows"], rec["status"])

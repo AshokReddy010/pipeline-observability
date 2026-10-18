@@ -39,8 +39,8 @@ def histogram(s: pd.Series, edges: list[float]) -> list[float]:
     v = pd.to_numeric(s, errors="coerce").dropna().to_numpy(dtype=float)
     if not len(v):
         return [0.0] * (len(edges) - 1)
-    v = np.clip(v, edges[0], np.nextafter(edges[-1], -np.inf))
-    counts, _ = np.histogram(v, bins=edges)
+    clipped = np.clip(v, edges[0], np.nextafter(edges[-1], -np.inf))
+    counts, _ = np.histogram(clipped, bins=edges)
     return [round(float(c) / len(v), 6) for c in counts]
 
 
@@ -66,6 +66,7 @@ def profile(batch: Batch, src: Source) -> dict[str, Any]:
     if src.event_time in df.columns and len(df):
         ts = pd.to_datetime(df[src.event_time], errors="coerce", utc=True).max()
         if not pd.isna(ts):
+            ts = ts + pd.Timedelta(hours=src.period_hours)  # a day's data is complete at the end of the day
             newest = ts.isoformat()
             freshness_hours = round((pd.Timestamp(batch.fetched_at) - ts).total_seconds() / 3600, 3)
     dup = None

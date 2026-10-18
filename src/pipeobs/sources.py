@@ -52,6 +52,7 @@ class Source:
     seasonal: bool  # compare volume with the same weekday
     fetch: Callable[[datetime], Batch]
     backfill: Callable[[datetime, int], list[Batch]]
+    period_hours: float = 0.0  # records stamped at the start of a period (a day) are complete this much later
 
 
 # ------------------------------------------------------------------ http
@@ -148,8 +149,11 @@ def backfill_usgs(now: datetime, days: int) -> list[Batch]:
     df = parse_usgs(get_json(USGS_MONTH, timeout=180))
     out = []
     end = now.replace(minute=0, second=0, microsecond=0)
+    earliest = df["time"].min()
     for k in range(days * 4, 0, -1):
         t = end - timedelta(hours=6 * k)
+        if pd.isna(earliest) or t - timedelta(hours=24) < earliest:
+            continue  # only windows the 30-day feed covers completely
         part = df[(df["time"] > t - timedelta(hours=24)) & (df["time"] <= t)].reset_index(drop=True)
         out.append(Batch("usgs_earthquakes", t.strftime("%Y-%m-%dT%H:00Z"), part, t, 0.0, {"backfill": True}))
     return out

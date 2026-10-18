@@ -8,11 +8,11 @@ import pytest
 NOW = datetime(2026, 10, 18, 12, 0, tzinfo=timezone.utc)
 
 
-def usgs_doc(n=300, seed=1, now=NOW, drop=(), extra=None):
+def usgs_doc(n=300, seed=1, now=NOW, drop=(), extra=None, span_hours=24):
     rng = random.Random(seed)
     feats = []
     for i in range(n):
-        t = now - timedelta(minutes=rng.randint(1, 24 * 60))
+        t = now - timedelta(minutes=rng.randint(1, span_hours * 60))
         props = {
             "mag": round(rng.uniform(-0.5, 5.5), 2),
             "place": f"{rng.randint(1, 90)} km N of Somewhere",
