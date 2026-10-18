@@ -66,7 +66,7 @@ src/pipeobs/
   cli.py        pipeobs run | status | alert
 .github/workflows/monitor.yml   every 3 hours: run, commit, alert
 site/index.html                 the status page
-tests/                          fixtures shaped like each API's real payload; 41 tests, ~94% coverage
+tests/                          fixtures shaped like each API's real payload; 39 tests, ~94% coverage
 ```
 
 ## Limits
