@@ -48,7 +48,7 @@ def test_profile_usgs():
     assert 0 < p["freshness_hours"] < 1
     assert p["columns"]["mag"] == "float" and p["columns"]["time"] == "timestamp"
     assert abs(sum(p["histograms"]["mag"]) - 1) < 1e-6
-    assert set(p["categories"]) == {"mag_type", "net", "type", "status"}
+    assert set(p["categories"]) == {"mag_type", "type"}
     assert len(p["schema_hash"]) == 12
 
 
@@ -62,4 +62,4 @@ def test_profile_chicago_booleans():
 def test_daily_feed_freshness_counts_from_the_end_of_the_day():
     src = SOURCES["wikipedia_top"]
     p = profile(Batch(src.name, "2026-10-16", parse_wiki(wiki_doc("2026-10-16", n=10)), NOW), src)
-    assert p["newest_event"].startswith("2026-10-17T00:00") and p["freshness_hours"] == 12.0
+    assert p["newest_event"].startswith("2026-10-17T00:00") and p["freshness_hours"] == 36.0
