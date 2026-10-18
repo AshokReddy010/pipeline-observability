@@ -57,3 +57,9 @@ def test_profile_chicago_booleans():
     p = profile(Batch(src.name, "2026-10-09", parse_chicago(chicago_rows()), NOW), src)
     assert p["columns"]["arrest"] == "boolean" and set(p["categories"]["arrest"]) == {"True", "False"}
     assert 24 * 8 < p["freshness_hours"] < 24 * 9.1
+
+
+def test_daily_feed_freshness_counts_from_the_end_of_the_day():
+    src = SOURCES["wikipedia_top"]
+    p = profile(Batch(src.name, "2026-10-16", parse_wiki(wiki_doc("2026-10-16", n=10)), NOW), src)
+    assert p["newest_event"].startswith("2026-10-17T00:00") and p["freshness_hours"] == 12.0

@@ -289,7 +289,7 @@ SOURCES: dict[str, Source] = {
             2.0,
             "time",
             {"mag": [-2, 0, 1, 2, 3, 4, 5, 6, 10], "depth_km": [-10, 5, 10, 20, 35, 70, 150, 300, 800]},
-            ("mag_type", "net", "type", "status"),
+            ("mag_type", "type"),  # network and review status swing with aftershock sequences and age
             False,
             fetch_usgs,
             backfill_usgs,
@@ -298,7 +298,7 @@ SOURCES: dict[str, Source] = {
             "wikipedia_top",
             "Wikipedia top 1,000 articles, daily",
             "https://wikimedia.org/api/rest_v1/",
-            "daily, a few hours after midnight UTC",
+            "daily, usually within a day",
             54.0,
             "day",
             {"views": [0, 2e4, 3e4, 5e4, 1e5, 2e5, 5e5, 1e6, 1e9]},
@@ -306,6 +306,7 @@ SOURCES: dict[str, Source] = {
             True,
             fetch_wiki,
             backfill_wiki,
+            period_hours=24,
         ),
         Source(
             "chicago_crimes",
