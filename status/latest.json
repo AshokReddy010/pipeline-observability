@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-10-19T04:38:37.076459+00:00",
- "overall": "fail",
+ "generated_at": "2026-10-19T12:36:52.258956+00:00",
+ "overall": "warn",
  "sources": [
   {
    "name": "usgs_earthquakes",
@@ -9,32 +9,32 @@
    "cadence": "continuously, every minute",
    "freshness_sla_hours": 2.0,
    "status": "warn",
-   "live_freshness_hours": 0.23,
-   "last_run": "2026-10-19T04:38:34.966421+00:00",
+   "live_freshness_hours": 0.15,
+   "last_run": "2026-10-19T12:36:50.454820+00:00",
    "latest": {
-    "partition": "2026-10-19T04:00Z",
-    "rows": 216,
+    "partition": "2026-10-19T12:00Z",
+    "rows": 208,
     "status": "warn",
     "checks": [
      {
-      "message": "fetched 216 rows in 0.2s",
+      "message": "fetched 208 rows in 0.1s",
       "monitor": "availability",
       "status": "pass",
-      "value": 0.164
+      "value": 0.052
      },
      {
       "expected": "<= 2.0h",
-      "message": "newest record is 14 min old",
+      "message": "newest record is 9 min old",
       "monitor": "freshness",
       "status": "pass",
-      "value": 0.232
+      "value": 0.151
      },
      {
-      "expected": "110..373",
-      "message": "216 rows vs a typical 242 (recent runs); z = -0.6",
+      "expected": "115..365",
+      "message": "208 rows vs a typical 240 (recent runs); z = -0.8",
       "monitor": "volume",
       "status": "pass",
-      "value": 216
+      "value": 208
      },
      {
       "message": "14 columns, unchanged",
@@ -54,19 +54,19 @@
      },
      {
       "expected": "< 0.2",
-      "message": "largest shift: mag (PSI 0.24)",
+      "message": "largest shift: mag (PSI 0.26)",
       "monitor": "distribution",
       "status": "warn",
       "target": "mag",
-      "value": 0.2403
+      "value": 0.2612
      }
     ],
     "error": null,
-    "fetch_seconds": 0.164
+    "fetch_seconds": 0.052
    },
    "uptime_7d": 1.0,
    "uptime_30d": 1.0,
-   "runs_total": 118,
+   "runs_total": 119,
    "runs": [
     {
      "t": "2026-09-20T02:00:00+00:00",
@@ -1011,6 +1011,14 @@
      "rows": 216,
      "f": 0.232,
      "b": 0
+    },
+    {
+     "t": "2026-10-19T12:36:50.454820+00:00",
+     "p": "2026-10-19T12:00Z",
+     "s": "warn",
+     "rows": 208,
+     "f": 0.151,
+     "b": 0
     }
    ],
    "open_incidents": 0
@@ -1021,26 +1029,26 @@
    "homepage": "https://wikimedia.org/api/rest_v1/",
    "cadence": "daily, usually within a day",
    "freshness_sla_hours": 54.0,
-   "status": "fail",
-   "live_freshness_hours": 76.64,
-   "last_run": "2026-10-16T06:00:00+00:00",
+   "status": "pass",
+   "live_freshness_hours": 12.61,
+   "last_run": "2026-10-19T12:36:50.454820+00:00",
    "latest": {
-    "partition": "2026-10-15",
+    "partition": "2026-10-18",
     "rows": 1000,
     "status": "pass",
     "checks": [
      {
-      "message": "fetched 1,000 rows in 0.0s",
+      "message": "fetched 1,000 rows in 0.1s",
       "monitor": "availability",
       "status": "pass",
-      "value": 0.013
+      "value": 0.083
      },
      {
       "expected": "<= 54.0h",
-      "message": "newest record is 6.0 h old",
+      "message": "newest record is 12.6 h old",
       "monitor": "freshness",
       "status": "pass",
-      "value": 6.0
+      "value": 12.614
      },
      {
       "expected": "850..1,150",
@@ -1065,15 +1073,15 @@
       "monitor": "distribution",
       "status": "pass",
       "target": "views",
-      "value": 0.0143
+      "value": 0.0111
      }
     ],
     "error": null,
-    "fetch_seconds": 0.013
+    "fetch_seconds": 0.083
    },
    "uptime_7d": 1.0,
    "uptime_30d": 1.0,
-   "runs_total": 29,
+   "runs_total": 30,
    "runs": [
     {
      "t": "2026-09-18T06:00:00+00:00",
@@ -1306,9 +1314,17 @@
      "rows": 1000,
      "f": 6.0,
      "b": 1
+    },
+    {
+     "t": "2026-10-19T12:36:50.454820+00:00",
+     "p": "2026-10-18",
+     "s": "pass",
+     "rows": 1000,
+     "f": 12.614,
+     "b": 0
     }
    ],
-   "open_incidents": 1
+   "open_incidents": 0
   },
   {
    "name": "chicago_crimes",
@@ -1317,32 +1333,32 @@
    "cadence": "daily, about 7 days behind",
    "freshness_sla_hours": 240,
    "status": "pass",
-   "live_freshness_hours": 220.68,
-   "last_run": "2026-10-17T00:00:00+00:00",
+   "live_freshness_hours": 204.7,
+   "last_run": "2026-10-19T12:36:50.454820+00:00",
    "latest": {
-    "partition": "2026-10-09",
-    "rows": 644,
+    "partition": "2026-10-10",
+    "rows": 651,
     "status": "pass",
     "checks": [
      {
-      "message": "fetched 644 rows in 0.5s",
+      "message": "fetched 651 rows in 0.8s",
       "monitor": "availability",
       "status": "pass",
-      "value": 0.477
+      "value": 0.758
      },
      {
       "expected": "<= 240h",
-      "message": "newest record is 7.0 days old",
+      "message": "newest record is 8.5 days old",
       "monitor": "freshness",
       "status": "pass",
-      "value": 168.033
+      "value": 204.697
      },
      {
-      "expected": "556..806",
-      "message": "644 rows vs a typical 681 (same weekday); z = -0.9",
+      "expected": "577..780",
+      "message": "651 rows vs a typical 678 (same weekday); z = -0.8",
       "monitor": "volume",
       "status": "pass",
-      "value": 644
+      "value": 651
      },
      {
       "message": "23 columns, unchanged",
@@ -1362,19 +1378,19 @@
      },
      {
       "expected": "< 0.2",
-      "message": "largest shift: primary_type (PSI 0.05)",
+      "message": "largest shift: district (PSI 0.05)",
       "monitor": "distribution",
       "status": "pass",
-      "target": "primary_type",
-      "value": 0.0472
+      "target": "district",
+      "value": 0.0482
      }
     ],
     "error": null,
-    "fetch_seconds": 0.477
+    "fetch_seconds": 0.758
    },
    "uptime_7d": 1.0,
    "uptime_30d": 1.0,
-   "runs_total": 30,
+   "runs_total": 31,
    "runs": [
     {
      "t": "2026-09-18T00:00:00+00:00",
@@ -1615,24 +1631,20 @@
      "rows": 644,
      "f": 168.033,
      "b": 1
+    },
+    {
+     "t": "2026-10-19T12:36:50.454820+00:00",
+     "p": "2026-10-10",
+     "s": "pass",
+     "rows": 651,
+     "f": 204.697,
+     "b": 0
     }
    ],
    "open_incidents": 0
   }
  ],
- "incidents": [
-  {
-   "source": "wikipedia_top",
-   "monitor": "freshness",
-   "started": "2026-10-18T06:00:00+00:00",
-   "last_seen": "2026-10-19T04:38:37.076459+00:00",
-   "runs": 0,
-   "resolved": null,
-   "backfill": false,
-   "first_message": "no new data within the SLA",
-   "last_message": "newest record is 76.6 h old (SLA 54 h)"
-  }
- ],
+ "incidents": [],
  "mttr_hours_30d": null,
- "incidents_30d": 1
+ "incidents_30d": 0
 }
