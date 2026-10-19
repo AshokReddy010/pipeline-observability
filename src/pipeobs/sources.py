@@ -187,13 +187,15 @@ def _wiki_day(d: date, fetched: datetime) -> Batch:
 
 
 def fetch_wiki(now: datetime) -> Batch:
-    for back in (1, 2, 3):  # yesterday's file appears a few hours into the next UTC day
+    # yesterday's file usually appears a few hours into the next UTC day, but Wikimedia's daily jobs sometimes
+    # stall for days; look back a week so freshness reports the real age instead of a fetch error
+    for back in range(1, 8):
         try:
             return _wiki_day((now - timedelta(days=back)).date(), now)
         except FetchError as error:
             if "404" not in str(error):
                 raise
-    raise FetchError("no Wikipedia top-articles file for the last 3 days")
+    raise FetchError("no Wikipedia top-articles file for the last 7 days")
 
 
 def backfill_wiki(now: datetime, days: int) -> list[Batch]:
