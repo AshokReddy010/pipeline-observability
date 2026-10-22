@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-10-22T17:09:19.888840+00:00",
- "overall": "pass",
+ "generated_at": "2026-10-22T21:34:25.868833+00:00",
+ "overall": "warn",
  "sources": [
   {
    "name": "usgs_earthquakes",
@@ -8,33 +8,33 @@
    "homepage": "https://earthquake.usgs.gov/earthquakes/feed/",
    "cadence": "continuously, every minute",
    "freshness_sla_hours": 2.0,
-   "status": "pass",
-   "live_freshness_hours": 0.19,
-   "last_run": "2026-10-22T17:09:17.887658+00:00",
+   "status": "warn",
+   "live_freshness_hours": 0.06,
+   "last_run": "2026-10-22T21:34:24.340552+00:00",
    "latest": {
-    "partition": "2026-10-22T17:00Z",
-    "rows": 228,
-    "status": "pass",
+    "partition": "2026-10-22T21:00Z",
+    "rows": 255,
+    "status": "warn",
     "checks": [
      {
-      "message": "fetched 228 rows in 0.2s",
+      "message": "fetched 255 rows in 0.1s",
       "monitor": "availability",
       "status": "pass",
-      "value": 0.176
+      "value": 0.065
      },
      {
       "expected": "<= 2.0h",
-      "message": "newest record is 12 min old",
+      "message": "newest record is 3 min old",
       "monitor": "freshness",
       "status": "pass",
-      "value": 0.193
+      "value": 0.057
      },
      {
       "expected": "176..248",
-      "message": "228 rows vs a typical 212 (recent runs); z = +1.3",
+      "message": "255 rows vs a typical 212 (recent runs); z = +3.6",
       "monitor": "volume",
-      "status": "pass",
-      "value": 228
+      "status": "warn",
+      "value": 255
      },
      {
       "message": "14 columns, unchanged",
@@ -54,28 +54,20 @@
      },
      {
       "expected": "< 0.2",
-      "message": "largest shift: mag_type (PSI 0.08)",
+      "message": "largest shift: mag (PSI 0.10)",
       "monitor": "distribution",
       "status": "pass",
-      "target": "mag_type",
-      "value": 0.0776
+      "target": "mag",
+      "value": 0.0996
      }
     ],
     "error": null,
-    "fetch_seconds": 0.176
+    "fetch_seconds": 0.065
    },
    "uptime_7d": 1.0,
    "uptime_30d": 1.0,
-   "runs_total": 133,
+   "runs_total": 134,
    "runs": [
-    {
-     "t": "2026-09-23T08:00:00+00:00",
-     "p": "2026-09-23T08:00Z",
-     "s": "pass",
-     "rows": 424,
-     "f": 0.006,
-     "b": 1
-    },
     {
      "t": "2026-09-23T14:00:00+00:00",
      "p": "2026-09-23T14:00Z",
@@ -1027,6 +1019,14 @@
      "rows": 228,
      "f": 0.193,
      "b": 0
+    },
+    {
+     "t": "2026-10-22T21:34:24.340552+00:00",
+     "p": "2026-10-22T21:00Z",
+     "s": "warn",
+     "rows": 255,
+     "f": 0.057,
+     "b": 0
     }
    ],
    "open_incidents": 0
@@ -1038,7 +1038,7 @@
    "cadence": "daily, usually within a day",
    "freshness_sla_hours": 54.0,
    "status": "pass",
-   "live_freshness_hours": 17.16,
+   "live_freshness_hours": 21.57,
    "last_run": "2026-10-22T04:41:52.609740+00:00",
    "latest": {
     "partition": "2026-10-21",
@@ -1365,7 +1365,7 @@
    "cadence": "daily, about 7 days behind",
    "freshness_sla_hours": 240,
    "status": "pass",
-   "live_freshness_hours": 209.21,
+   "live_freshness_hours": 213.62,
    "last_run": "2026-10-22T17:09:17.887658+00:00",
    "latest": {
     "partition": "2026-10-13",
