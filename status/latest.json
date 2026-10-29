@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-29T09:56:57.658365+00:00",
+ "generated_at": "2026-10-29T18:27:55.086748+00:00",
  "overall": "pass",
  "sources": [
   {
@@ -9,32 +9,32 @@
    "cadence": "continuously, every minute",
    "freshness_sla_hours": 2.0,
    "status": "pass",
-   "live_freshness_hours": 0.5,
-   "last_run": "2026-10-29T09:56:55.857332+00:00",
+   "live_freshness_hours": 0.07,
+   "last_run": "2026-10-29T18:27:52.957450+00:00",
    "latest": {
-    "partition": "2026-10-29T09:00Z",
-    "rows": 206,
+    "partition": "2026-10-29T18:00Z",
+    "rows": 210,
     "status": "pass",
     "checks": [
      {
-      "message": "fetched 206 rows in 0.2s",
+      "message": "fetched 210 rows in 0.1s",
       "monitor": "availability",
       "status": "pass",
-      "value": 0.193
+      "value": 0.062
      },
      {
       "expected": "<= 2.0h",
-      "message": "newest record is 30 min old",
+      "message": "newest record is 4 min old",
       "monitor": "freshness",
       "status": "pass",
-      "value": 0.497
+      "value": 0.072
      },
      {
       "expected": "136..269",
-      "message": "206 rows vs a typical 202 (recent runs); z = +0.2",
+      "message": "210 rows vs a typical 202 (recent runs); z = +0.3",
       "monitor": "volume",
       "status": "pass",
-      "value": 206
+      "value": 210
      },
      {
       "message": "14 columns, unchanged",
@@ -54,28 +54,20 @@
      },
      {
       "expected": "< 0.2",
-      "message": "largest shift: depth_km (PSI 0.10)",
+      "message": "largest shift: mag (PSI 0.07)",
       "monitor": "distribution",
       "status": "pass",
-      "target": "depth_km",
-      "value": 0.0986
+      "target": "mag",
+      "value": 0.075
      }
     ],
     "error": null,
-    "fetch_seconds": 0.193
+    "fetch_seconds": 0.062
    },
    "uptime_7d": 1.0,
    "uptime_30d": 1.0,
-   "runs_total": 160,
+   "runs_total": 161,
    "runs": [
-    {
-     "t": "2026-09-30T02:00:00+00:00",
-     "p": "2026-09-30T02:00Z",
-     "s": "pass",
-     "rows": 357,
-     "f": 0.003,
-     "b": 1
-    },
     {
      "t": "2026-09-30T08:00:00+00:00",
      "p": "2026-09-30T08:00Z",
@@ -1027,6 +1019,14 @@
      "rows": 206,
      "f": 0.497,
      "b": 0
+    },
+    {
+     "t": "2026-10-29T18:27:52.957450+00:00",
+     "p": "2026-10-29T18:00Z",
+     "s": "pass",
+     "rows": 210,
+     "f": 0.072,
+     "b": 0
     }
    ],
    "open_incidents": 0
@@ -1038,7 +1038,7 @@
    "cadence": "daily, usually within a day",
    "freshness_sla_hours": 54.0,
    "status": "pass",
-   "live_freshness_hours": 9.95,
+   "live_freshness_hours": 18.47,
    "last_run": "2026-10-29T09:56:55.857332+00:00",
    "latest": {
     "partition": "2026-10-28",
@@ -1421,32 +1421,32 @@
    "cadence": "daily, about 7 days behind",
    "freshness_sla_hours": 240,
    "status": "pass",
-   "live_freshness_hours": 225.98,
-   "last_run": "2026-10-28T12:51:57.552644+00:00",
+   "live_freshness_hours": 210.57,
+   "last_run": "2026-10-29T18:27:52.957450+00:00",
    "latest": {
-    "partition": "2026-10-19",
-    "rows": 576,
+    "partition": "2026-10-20",
+    "rows": 583,
     "status": "pass",
     "checks": [
      {
-      "message": "fetched 576 rows in 0.6s",
+      "message": "fetched 583 rows in 1.0s",
       "monitor": "availability",
       "status": "pass",
-      "value": 0.626
+      "value": 0.996
      },
      {
       "expected": "<= 240h",
-      "message": "newest record is 8.5 days old",
+      "message": "newest record is 8.8 days old",
       "monitor": "freshness",
       "status": "pass",
-      "value": 204.899
+      "value": 210.565
      },
      {
-      "expected": "520..704",
-      "message": "576 rows vs a typical 612 (same weekday); z = -1.2",
+      "expected": "491..793",
+      "message": "583 rows vs a typical 642 (same weekday); z = -1.2",
       "monitor": "volume",
       "status": "pass",
-      "value": 576
+      "value": 583
      },
      {
       "message": "23 columns, unchanged",
@@ -1466,19 +1466,19 @@
      },
      {
       "expected": "< 0.2",
-      "message": "largest shift: district (PSI 0.06)",
+      "message": "largest shift: district (PSI 0.07)",
       "monitor": "distribution",
       "status": "pass",
       "target": "district",
-      "value": 0.0604
+      "value": 0.0744
      }
     ],
     "error": null,
-    "fetch_seconds": 0.626
+    "fetch_seconds": 0.996
    },
    "uptime_7d": 1.0,
    "uptime_30d": 1.0,
-   "runs_total": 40,
+   "runs_total": 41,
    "runs": [
     {
      "t": "2026-09-18T00:00:00+00:00",
@@ -1798,6 +1798,14 @@
      "s": "pass",
      "rows": 576,
      "f": 204.899,
+     "b": 0
+    },
+    {
+     "t": "2026-10-29T18:27:52.957450+00:00",
+     "p": "2026-10-20",
+     "s": "pass",
+     "rows": 583,
+     "f": 210.565,
      "b": 0
     }
    ],
