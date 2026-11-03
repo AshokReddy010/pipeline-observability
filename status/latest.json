@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-02T21:42:16.499398+00:00",
+ "generated_at": "2026-11-03T06:45:27.752940+00:00",
  "overall": "fail",
  "sources": [
   {
@@ -9,32 +9,32 @@
    "cadence": "continuously, every minute",
    "freshness_sla_hours": 2.0,
    "status": "fail",
-   "live_freshness_hours": 0.24,
-   "last_run": "2026-11-02T21:42:08.616819+00:00",
+   "live_freshness_hours": 0.06,
+   "last_run": "2026-11-03T06:45:25.737582+00:00",
    "latest": {
-    "partition": "2026-11-02T21:00Z",
-    "rows": 284,
+    "partition": "2026-11-03T06:00Z",
+    "rows": 273,
     "status": "fail",
     "checks": [
      {
-      "message": "fetched 284 rows in 0.2s",
+      "message": "fetched 273 rows in 0.0s",
       "monitor": "availability",
       "status": "pass",
-      "value": 0.164
+      "value": 0.044
      },
      {
       "expected": "<= 2.0h",
-      "message": "newest record is 14 min old",
+      "message": "newest record is 4 min old",
       "monitor": "freshness",
       "status": "pass",
-      "value": 0.237
+      "value": 0.062
      },
      {
       "expected": "169..241",
-      "message": "284 rows vs a typical 205 (recent runs); z = +6.7",
+      "message": "273 rows vs a typical 205 (recent runs); z = +5.7",
       "monitor": "volume",
       "status": "fail",
-      "value": 284
+      "value": 273
      },
      {
       "message": "14 columns, unchanged",
@@ -54,28 +54,20 @@
      },
      {
       "expected": "< 0.2",
-      "message": "largest shift: mag (PSI 0.15)",
+      "message": "largest shift: mag (PSI 0.14)",
       "monitor": "distribution",
       "status": "pass",
       "target": "mag",
-      "value": 0.1537
+      "value": 0.1422
      }
     ],
     "error": null,
-    "fetch_seconds": 0.164
+    "fetch_seconds": 0.044
    },
-   "uptime_7d": 0.9583,
-   "uptime_30d": 0.9916,
-   "runs_total": 175,
+   "uptime_7d": 0.9167,
+   "uptime_30d": 0.9832,
+   "runs_total": 176,
    "runs": [
-    {
-     "t": "2026-10-03T20:00:00+00:00",
-     "p": "2026-10-03T20:00Z",
-     "s": "warn",
-     "rows": 279,
-     "f": 0.088,
-     "b": 1
-    },
     {
      "t": "2026-10-04T02:00:00+00:00",
      "p": "2026-10-04T02:00Z",
@@ -1027,6 +1019,14 @@
      "rows": 284,
      "f": 0.237,
      "b": 0
+    },
+    {
+     "t": "2026-11-03T06:45:25.737582+00:00",
+     "p": "2026-11-03T06:00Z",
+     "s": "fail",
+     "rows": 273,
+     "f": 0.062,
+     "b": 0
     }
    ],
    "open_incidents": 1
@@ -1038,32 +1038,32 @@
    "cadence": "daily, usually within a day",
    "freshness_sla_hours": 54.0,
    "status": "pass",
-   "live_freshness_hours": 21.7,
-   "last_run": "2026-11-02T11:00:32.012024+00:00",
+   "live_freshness_hours": 6.76,
+   "last_run": "2026-11-03T06:45:25.737582+00:00",
    "latest": {
-    "partition": "2026-11-01",
-    "rows": 1000,
+    "partition": "2026-11-02",
+    "rows": 999,
     "status": "pass",
     "checks": [
      {
-      "message": "fetched 1,000 rows in 0.1s",
+      "message": "fetched 999 rows in 0.1s",
       "monitor": "availability",
       "status": "pass",
-      "value": 0.105
+      "value": 0.06
      },
      {
       "expected": "<= 54.0h",
-      "message": "newest record is 11.0 h old",
+      "message": "newest record is 6.8 h old",
       "monitor": "freshness",
       "status": "pass",
-      "value": 11.009
+      "value": 6.757
      },
      {
       "expected": "850..1,150",
-      "message": "1,000 rows vs a typical 1,000 (same weekday); z = +0.0",
+      "message": "999 rows vs a typical 1,000 (same weekday); z = -0.0",
       "monitor": "volume",
       "status": "pass",
-      "value": 1000
+      "value": 999
      },
      {
       "message": "5 columns, unchanged",
@@ -1077,19 +1077,19 @@
      },
      {
       "expected": "< 0.2",
-      "message": "largest shift: views (PSI 0.00)",
+      "message": "largest shift: views (PSI 0.01)",
       "monitor": "distribution",
       "status": "pass",
       "target": "views",
-      "value": 0.0036
+      "value": 0.0077
      }
     ],
     "error": null,
-    "fetch_seconds": 0.105
+    "fetch_seconds": 0.06
    },
    "uptime_7d": 1.0,
    "uptime_30d": 1.0,
-   "runs_total": 44,
+   "runs_total": 45,
    "runs": [
     {
      "t": "2026-09-18T06:00:00+00:00",
@@ -1442,6 +1442,14 @@
      "rows": 1000,
      "f": 11.009,
      "b": 0
+    },
+    {
+     "t": "2026-11-03T06:45:25.737582+00:00",
+     "p": "2026-11-02",
+     "s": "pass",
+     "rows": 999,
+     "f": 6.757,
+     "b": 0
     }
    ],
    "open_incidents": 0
@@ -1453,7 +1461,7 @@
    "cadence": "daily, about 7 days behind",
    "freshness_sla_hours": 240,
    "status": "pass",
-   "live_freshness_hours": 213.72,
+   "live_freshness_hours": 222.77,
    "last_run": "2026-11-02T21:42:08.616819+00:00",
    "latest": {
     "partition": "2026-10-24",
@@ -1881,10 +1889,10 @@
    "source": "usgs_earthquakes",
    "monitor": "volume",
    "started": "2026-11-02T21:42:08.616819+00:00",
-   "last_seen": "2026-11-02T21:42:08.616819+00:00",
-   "runs": 1,
+   "last_seen": "2026-11-03T06:45:25.737582+00:00",
+   "runs": 2,
    "first_message": "284 rows vs a typical 205 (recent runs); z = +6.7",
-   "last_message": "284 rows vs a typical 205 (recent runs); z = +6.7",
+   "last_message": "273 rows vs a typical 205 (recent runs); z = +5.7",
    "partition": "2026-11-02T21:00Z",
    "backfill": false,
    "resolved": null
