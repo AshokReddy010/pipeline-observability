@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-05T23:37:46.051532+00:00",
- "overall": "warn",
+ "generated_at": "2026-11-06T06:40:55.356604+00:00",
+ "overall": "pass",
  "sources": [
   {
    "name": "usgs_earthquakes",
@@ -9,32 +9,32 @@
    "cadence": "continuously, every minute",
    "freshness_sla_hours": 2.0,
    "status": "pass",
-   "live_freshness_hours": 0.16,
-   "last_run": "2026-11-05T23:37:41.005995+00:00",
+   "live_freshness_hours": 0.07,
+   "last_run": "2026-11-06T06:40:53.586289+00:00",
    "latest": {
-    "partition": "2026-11-05T23:00Z",
-    "rows": 220,
+    "partition": "2026-11-06T06:00Z",
+    "rows": 217,
     "status": "pass",
     "checks": [
      {
-      "message": "fetched 220 rows in 0.3s",
+      "message": "fetched 217 rows in 0.2s",
       "monitor": "availability",
       "status": "pass",
-      "value": 0.257
+      "value": 0.176
      },
      {
       "expected": "<= 2.0h",
-      "message": "newest record is 9 min old",
+      "message": "newest record is 4 min old",
       "monitor": "freshness",
       "status": "pass",
-      "value": 0.155
+      "value": 0.073
      },
      {
       "expected": "168..244",
-      "message": "220 rows vs a typical 206 (recent runs); z = +1.1",
+      "message": "217 rows vs a typical 206 (recent runs); z = +0.9",
       "monitor": "volume",
       "status": "pass",
-      "value": 220
+      "value": 217
      },
      {
       "message": "14 columns, unchanged",
@@ -54,28 +54,20 @@
      },
      {
       "expected": "< 0.2",
-      "message": "largest shift: depth_km (PSI 0.11)",
+      "message": "largest shift: depth_km (PSI 0.12)",
       "monitor": "distribution",
       "status": "pass",
       "target": "depth_km",
-      "value": 0.1086
+      "value": 0.1188
      }
     ],
     "error": null,
-    "fetch_seconds": 0.257
+    "fetch_seconds": 0.176
    },
    "uptime_7d": 0.913,
    "uptime_30d": 0.9828,
-   "runs_total": 184,
+   "runs_total": 185,
    "runs": [
-    {
-     "t": "2026-10-06T02:00:00+00:00",
-     "p": "2026-10-06T02:00Z",
-     "s": "pass",
-     "rows": 286,
-     "f": 0.178,
-     "b": 1
-    },
     {
      "t": "2026-10-06T08:00:00+00:00",
      "p": "2026-10-06T08:00Z",
@@ -1027,6 +1019,14 @@
      "rows": 220,
      "f": 0.155,
      "b": 0
+    },
+    {
+     "t": "2026-11-06T06:40:53.586289+00:00",
+     "p": "2026-11-06T06:00Z",
+     "s": "pass",
+     "rows": 217,
+     "f": 0.073,
+     "b": 0
     }
    ],
    "open_incidents": 0
@@ -1037,26 +1037,26 @@
    "homepage": "https://wikimedia.org/api/rest_v1/",
    "cadence": "daily, usually within a day",
    "freshness_sla_hours": 54.0,
-   "status": "warn",
-   "live_freshness_hours": 23.63,
-   "last_run": "2026-11-05T06:43:05.919684+00:00",
+   "status": "pass",
+   "live_freshness_hours": 6.68,
+   "last_run": "2026-11-06T06:40:53.586289+00:00",
    "latest": {
-    "partition": "2026-11-04",
+    "partition": "2026-11-05",
     "rows": 1000,
-    "status": "warn",
+    "status": "pass",
     "checks": [
      {
       "message": "fetched 1,000 rows in 0.1s",
       "monitor": "availability",
       "status": "pass",
-      "value": 0.061
+      "value": 0.108
      },
      {
       "expected": "<= 54.0h",
       "message": "newest record is 6.7 h old",
       "monitor": "freshness",
       "status": "pass",
-      "value": 6.718
+      "value": 6.682
      },
      {
       "expected": "850..1,150",
@@ -1077,19 +1077,19 @@
      },
      {
       "expected": "< 0.2",
-      "message": "largest shift: views (PSI 0.22)",
+      "message": "largest shift: views (PSI 0.02)",
       "monitor": "distribution",
-      "status": "warn",
+      "status": "pass",
       "target": "views",
-      "value": 0.2223
+      "value": 0.0237
      }
     ],
     "error": null,
-    "fetch_seconds": 0.061
+    "fetch_seconds": 0.108
    },
    "uptime_7d": 1.0,
    "uptime_30d": 1.0,
-   "runs_total": 47,
+   "runs_total": 48,
    "runs": [
     {
      "t": "2026-09-18T06:00:00+00:00",
@@ -1466,6 +1466,14 @@
      "rows": 1000,
      "f": 6.718,
      "b": 0
+    },
+    {
+     "t": "2026-11-06T06:40:53.586289+00:00",
+     "p": "2026-11-05",
+     "s": "pass",
+     "rows": 1000,
+     "f": 6.682,
+     "b": 0
     }
    ],
    "open_incidents": 0
@@ -1477,7 +1485,7 @@
    "cadence": "daily, about 7 days behind",
    "freshness_sla_hours": 240,
    "status": "pass",
-   "live_freshness_hours": 215.81,
+   "live_freshness_hours": 222.87,
    "last_run": "2026-11-05T17:22:41.454338+00:00",
    "latest": {
     "partition": "2026-10-27",
