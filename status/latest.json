@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-08T00:34:10.982570+00:00",
+ "generated_at": "2026-11-08T10:18:32.202419+00:00",
  "overall": "pass",
  "sources": [
   {
@@ -9,32 +9,32 @@
    "cadence": "continuously, every minute",
    "freshness_sla_hours": 2.0,
    "status": "pass",
-   "live_freshness_hours": 0.37,
-   "last_run": "2026-11-08T00:34:09.441704+00:00",
+   "live_freshness_hours": 0.4,
+   "last_run": "2026-11-08T10:18:16.297799+00:00",
    "latest": {
-    "partition": "2026-11-08T00:00Z",
-    "rows": 177,
+    "partition": "2026-11-08T10:00Z",
+    "rows": 199,
     "status": "pass",
     "checks": [
      {
-      "message": "fetched 177 rows in 0.1s",
+      "message": "fetched 199 rows in 0.1s",
       "monitor": "availability",
       "status": "pass",
-      "value": 0.139
+      "value": 0.051
      },
      {
       "expected": "<= 2.0h",
-      "message": "newest record is 22 min old",
+      "message": "newest record is 24 min old",
       "monitor": "freshness",
       "status": "pass",
-      "value": 0.365
+      "value": 0.397
      },
      {
-      "expected": "157..254",
-      "message": "177 rows vs a typical 206 (recent runs); z = -1.7",
+      "expected": "154..256",
+      "message": "199 rows vs a typical 205 (recent runs); z = -0.4",
       "monitor": "volume",
       "status": "pass",
-      "value": 177
+      "value": 199
      },
      {
       "message": "14 columns, unchanged",
@@ -54,28 +54,20 @@
      },
      {
       "expected": "< 0.2",
-      "message": "largest shift: type (PSI 0.15)",
+      "message": "largest shift: type (PSI 0.14)",
       "monitor": "distribution",
       "status": "pass",
       "target": "type",
-      "value": 0.1526
+      "value": 0.136
      }
     ],
     "error": null,
-    "fetch_seconds": 0.139
+    "fetch_seconds": 0.051
    },
    "uptime_7d": 0.9091,
-   "uptime_30d": 0.9826,
-   "runs_total": 191,
+   "uptime_30d": 0.9825,
+   "runs_total": 192,
    "runs": [
-    {
-     "t": "2026-10-07T20:00:00+00:00",
-     "p": "2026-10-07T20:00Z",
-     "s": "warn",
-     "rows": 421,
-     "f": 0.055,
-     "b": 1
-    },
     {
      "t": "2026-10-08T02:00:00+00:00",
      "p": "2026-10-08T02:00Z",
@@ -1027,6 +1019,14 @@
      "rows": 177,
      "f": 0.365,
      "b": 0
+    },
+    {
+     "t": "2026-11-08T10:18:16.297799+00:00",
+     "p": "2026-11-08T10:00Z",
+     "s": "pass",
+     "rows": 199,
+     "f": 0.397,
+     "b": 0
     }
    ],
    "open_incidents": 0
@@ -1038,7 +1038,7 @@
    "cadence": "daily, usually within a day",
    "freshness_sla_hours": 54.0,
    "status": "pass",
-   "live_freshness_hours": 24.57,
+   "live_freshness_hours": 34.31,
    "last_run": "2026-11-07T05:56:01.732752+00:00",
    "latest": {
     "partition": "2026-11-06",
@@ -1493,7 +1493,7 @@
    "cadence": "daily, about 7 days behind",
    "freshness_sla_hours": 240,
    "status": "pass",
-   "live_freshness_hours": 216.79,
+   "live_freshness_hours": 226.53,
    "last_run": "2026-11-07T12:57:57.123905+00:00",
    "latest": {
     "partition": "2026-10-29",
