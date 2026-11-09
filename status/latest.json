@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-08T22:02:07.507063+00:00",
- "overall": "pass",
+ "generated_at": "2026-11-09T06:23:49.282245+00:00",
+ "overall": "fail",
  "sources": [
   {
    "name": "usgs_earthquakes",
@@ -9,32 +9,32 @@
    "cadence": "continuously, every minute",
    "freshness_sla_hours": 2.0,
    "status": "pass",
-   "live_freshness_hours": 0.06,
-   "last_run": "2026-11-08T22:01:58.296147+00:00",
+   "live_freshness_hours": 0.05,
+   "last_run": "2026-11-09T06:23:20.328673+00:00",
    "latest": {
-    "partition": "2026-11-08T22:00Z",
-    "rows": 200,
+    "partition": "2026-11-09T06:00Z",
+    "rows": 196,
     "status": "pass",
     "checks": [
      {
-      "message": "fetched 200 rows in 0.1s",
+      "message": "fetched 196 rows in 0.1s",
       "monitor": "availability",
       "status": "pass",
-      "value": 0.14
+      "value": 0.075
      },
      {
       "expected": "<= 2.0h",
       "message": "newest record is 3 min old",
       "monitor": "freshness",
       "status": "pass",
-      "value": 0.054
+      "value": 0.043
      },
      {
-      "expected": "156..254",
-      "message": "200 rows vs a typical 205 (recent runs); z = -0.3",
+      "expected": "155..253",
+      "message": "196 rows vs a typical 204 (recent runs); z = -0.5",
       "monitor": "volume",
       "status": "pass",
-      "value": 200
+      "value": 196
      },
      {
       "message": "14 columns, unchanged",
@@ -54,28 +54,20 @@
      },
      {
       "expected": "< 0.2",
-      "message": "largest shift: type (PSI 0.13)",
+      "message": "largest shift: type (PSI 0.12)",
       "monitor": "distribution",
       "status": "pass",
       "target": "type",
-      "value": 0.1291
+      "value": 0.1236
      }
     ],
     "error": null,
-    "fetch_seconds": 0.14
+    "fetch_seconds": 0.075
    },
    "uptime_7d": 0.9091,
    "uptime_30d": 0.9825,
-   "runs_total": 194,
+   "runs_total": 195,
    "runs": [
-    {
-     "t": "2026-10-08T14:00:00+00:00",
-     "p": "2026-10-08T14:00Z",
-     "s": "pass",
-     "rows": 319,
-     "f": 0.102,
-     "b": 1
-    },
     {
      "t": "2026-10-08T20:00:00+00:00",
      "p": "2026-10-08T20:00Z",
@@ -1027,6 +1019,14 @@
      "rows": 200,
      "f": 0.054,
      "b": 0
+    },
+    {
+     "t": "2026-11-09T06:23:20.328673+00:00",
+     "p": "2026-11-09T06:00Z",
+     "s": "pass",
+     "rows": 196,
+     "f": 0.043,
+     "b": 0
     }
    ],
    "open_incidents": 0
@@ -1037,8 +1037,8 @@
    "homepage": "https://wikimedia.org/api/rest_v1/",
    "cadence": "daily, usually within a day",
    "freshness_sla_hours": 54.0,
-   "status": "pass",
-   "live_freshness_hours": 46.04,
+   "status": "fail",
+   "live_freshness_hours": 54.4,
    "last_run": "2026-11-07T05:56:01.732752+00:00",
    "latest": {
     "partition": "2026-11-06",
@@ -1484,7 +1484,7 @@
      "b": 0
     }
    ],
-   "open_incidents": 0
+   "open_incidents": 1
   },
   {
    "name": "chicago_crimes",
@@ -1493,7 +1493,7 @@
    "cadence": "daily, about 7 days behind",
    "freshness_sla_hours": 240,
    "status": "pass",
-   "live_freshness_hours": 214.05,
+   "live_freshness_hours": 222.41,
    "last_run": "2026-11-08T17:55:19.844798+00:00",
    "latest": {
     "partition": "2026-10-30",
@@ -1966,6 +1966,17 @@
  ],
  "incidents": [
   {
+   "source": "wikipedia_top",
+   "monitor": "freshness",
+   "started": "2026-11-09T06:00:00+00:00",
+   "last_seen": "2026-11-09T06:23:49.282245+00:00",
+   "runs": 0,
+   "resolved": null,
+   "backfill": false,
+   "first_message": "no new data within the SLA",
+   "last_message": "newest record is 54.4 h old (SLA 54 h)"
+  },
+  {
    "source": "usgs_earthquakes",
    "monitor": "volume",
    "started": "2026-11-02T21:42:08.616819+00:00",
@@ -1980,5 +1991,5 @@
   }
  ],
  "mttr_hours_30d": 19.33,
- "incidents_30d": 1
+ "incidents_30d": 2
 }
