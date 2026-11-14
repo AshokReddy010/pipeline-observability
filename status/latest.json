@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-13T23:31:10.324228+00:00",
+ "generated_at": "2026-11-14T06:18:47.353248+00:00",
  "overall": "warn",
  "sources": [
   {
@@ -9,32 +9,32 @@
    "cadence": "continuously, every minute",
    "freshness_sla_hours": 2.0,
    "status": "warn",
-   "live_freshness_hours": 0.08,
-   "last_run": "2026-11-13T23:31:05.208821+00:00",
+   "live_freshness_hours": 0.37,
+   "last_run": "2026-11-14T06:18:43.616524+00:00",
    "latest": {
-    "partition": "2026-11-13T23:00Z",
-    "rows": 245,
+    "partition": "2026-11-14T06:00Z",
+    "rows": 224,
     "status": "warn",
     "checks": [
      {
-      "message": "fetched 245 rows in 0.2s",
+      "message": "fetched 224 rows in 0.2s",
       "monitor": "availability",
       "status": "pass",
-      "value": 0.151
+      "value": 0.161
      },
      {
       "expected": "<= 2.0h",
-      "message": "newest record is 5 min old",
+      "message": "newest record is 22 min old",
       "monitor": "freshness",
       "status": "pass",
-      "value": 0.08
+      "value": 0.369
      },
      {
-      "expected": "162..238",
-      "message": "245 rows vs a typical 200 (recent runs); z = +3.6",
+      "expected": "159..244",
+      "message": "224 rows vs a typical 202 (recent runs); z = +1.6",
       "monitor": "volume",
-      "status": "warn",
-      "value": 245
+      "status": "pass",
+      "value": 224
      },
      {
       "message": "14 columns, unchanged",
@@ -54,28 +54,20 @@
      },
      {
       "expected": "< 0.2",
-      "message": "largest shift: type (PSI 0.80)",
+      "message": "largest shift: type (PSI 0.43)",
       "monitor": "distribution",
       "status": "warn",
       "target": "type",
-      "value": 0.7988
+      "value": 0.4272
      }
     ],
     "error": null,
-    "fetch_seconds": 0.151
+    "fetch_seconds": 0.161
    },
    "uptime_7d": 0.9524,
    "uptime_30d": 0.9722,
-   "runs_total": 208,
+   "runs_total": 209,
    "runs": [
-    {
-     "t": "2026-10-12T02:00:00+00:00",
-     "p": "2026-10-12T02:00Z",
-     "s": "pass",
-     "rows": 311,
-     "f": 0.01,
-     "b": 1
-    },
     {
      "t": "2026-10-12T08:00:00+00:00",
      "p": "2026-10-12T08:00Z",
@@ -1027,6 +1019,14 @@
      "rows": 245,
      "f": 0.08,
      "b": 0
+    },
+    {
+     "t": "2026-11-14T06:18:43.616524+00:00",
+     "p": "2026-11-14T06:00Z",
+     "s": "warn",
+     "rows": 224,
+     "f": 0.369,
+     "b": 0
     }
    ],
    "open_incidents": 0
@@ -1038,10 +1038,10 @@
    "cadence": "daily, usually within a day",
    "freshness_sla_hours": 54.0,
    "status": "pass",
-   "live_freshness_hours": 23.52,
-   "last_run": "2026-11-13T06:41:43.874585+00:00",
+   "live_freshness_hours": 6.31,
+   "last_run": "2026-11-14T06:18:43.616524+00:00",
    "latest": {
-    "partition": "2026-11-12",
+    "partition": "2026-11-13",
     "rows": 1000,
     "status": "pass",
     "checks": [
@@ -1049,14 +1049,14 @@
       "message": "fetched 1,000 rows in 0.1s",
       "monitor": "availability",
       "status": "pass",
-      "value": 0.103
+      "value": 0.112
      },
      {
       "expected": "<= 54.0h",
-      "message": "newest record is 6.7 h old",
+      "message": "newest record is 6.3 h old",
       "monitor": "freshness",
       "status": "pass",
-      "value": 6.696
+      "value": 6.312
      },
      {
       "expected": "850..1,150",
@@ -1081,15 +1081,15 @@
       "monitor": "distribution",
       "status": "pass",
       "target": "views",
-      "value": 0.0059
+      "value": 0.0099
      }
     ],
     "error": null,
-    "fetch_seconds": 0.103
+    "fetch_seconds": 0.112
    },
    "uptime_7d": 1.0,
    "uptime_30d": 1.0,
-   "runs_total": 54,
+   "runs_total": 55,
    "runs": [
     {
      "t": "2026-09-18T06:00:00+00:00",
@@ -1522,6 +1522,14 @@
      "rows": 1000,
      "f": 6.696,
      "b": 0
+    },
+    {
+     "t": "2026-11-14T06:18:43.616524+00:00",
+     "p": "2026-11-13",
+     "s": "pass",
+     "rows": 1000,
+     "f": 6.312,
+     "b": 0
     }
    ],
    "open_incidents": 0
@@ -1533,7 +1541,7 @@
    "cadence": "daily, about 7 days behind",
    "freshness_sla_hours": 240,
    "status": "pass",
-   "live_freshness_hours": 215.62,
+   "live_freshness_hours": 222.41,
    "last_run": "2026-11-13T17:11:52.059673+00:00",
    "latest": {
     "partition": "2026-11-04",
